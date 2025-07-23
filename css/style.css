@@ -45,7 +45,7 @@
   --highlight-color: #40e0d0;
   --header-shadow: rgba(255, 255, 255, 0.05);
 
-  --btn-bg: #121212;
+  --btn-bg:#40e0d0;
   --btn-text: #f1f1f1;
   --btn-bg-hover: #2e2e2e;
 
@@ -167,7 +167,7 @@
 .slides-wrapper {
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 700px;
   transition: transform 0.7s ease;
 }
 
@@ -203,18 +203,20 @@
   padding: 12px 25px;
   background: var(--btn-bg);
   color: var(--btn-text);
-  border: none;
+  border: 3px solid var(--btn-bg);
   border-radius: 6px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.25s;
+  transition: all 0.25s ease;
 }
+
 .donate-btn:hover {
   background: transparent;
-  border: 2px solid #ffffff; /* أو استخدم var(--btn-text) إن أردت */
-  color: #ffffff; /* تأكد أن النص يظل واضحاً */
+  border: 2px solid var(--btn-bg);
+  color: var(--btn-text);
 }
+
 
 
 /* ====================================
@@ -225,6 +227,7 @@
   width: 50%;
   background-size: cover;
   background-position: center;
+
   overflow: hidden;
 }
 
@@ -384,7 +387,7 @@
 
   /* slider layout */
   .hero-slider {
-    height: 70vh;
+    height: 100vh;
   }
   .slides-wrapper {
     flex-direction: row; /* keep slider horizontal */
@@ -395,8 +398,9 @@
   }
   .right-side {
     order: 1;
+    margin-top: 20px;
     width: 100%;
-    height: 60%;
+    height: 70%;
   }
  .left-side {
   order: 2;
@@ -413,13 +417,15 @@
     margin-bottom: 10px;
   }
   .donate-btn {
-    font-size: 1rem;
+    width:130px;
+    font-size: .8rem;
     align-self: flex-start;
   }
   .slider-buttons {
     bottom: 15px;
     left: 85%;
     transform: translateX(-50%);
+    display: none;
   }
   .slider-buttons button {
     width: 35px;
@@ -450,6 +456,7 @@
 
 /* Left */
 .left-side2 {
+  margin-top: 20px;
   min-width: 250px;
 }
 
@@ -474,19 +481,19 @@
 }
 
 .view-all {
-  padding: 8px 16px;
+  padding: 10px 16px;
   border: 1px solid var(--accent-color);
   border-radius: 12px;
-  color: var(--accent-color);
+  color: var(--bg-color);
   font-weight: 600;
   cursor: pointer;
-  background-color: transparent;
+  background-color: var(--accent-color);
   transition: 0.3s;
 }
 
 .view-all:hover {
-  background-color: var(--accent-color);
-  color: white;
+  background-color: transparent;
+  color: var(--accent-color);
 }
 
 /* Arrows */
@@ -499,8 +506,8 @@
   width: 40px;
   height: 40px;
   border: 1px solid var(--accent-color);
-  background-color: var(--btn-bg);
-  color: var(--accent-color);
+  background-color: transparent;
+  color: var(--btn-text);
   border-radius: 50%;
   font-size: 18px;
   cursor: pointer;
@@ -508,7 +515,7 @@
 }
 
 .arrow-btn:hover {
-  background-color: var(--btn-bg-hover);
+  background-color: var(--accent-color);
   transform: scale(1.1);
 }
 
@@ -537,6 +544,7 @@
   background: var(--card-bg, rgba(9, 6, 6, 0.8));
   border-radius: 16px;
   text-align: center;
+  justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
   color: var(--text-color);
@@ -581,6 +589,10 @@
 .category img {
   width: 60px;
   height: 60px;
+
+}
+.category p {
+  margin-top: 30px;
 }
 @media (max-width: 768px) {
   .donate-wrapper {
@@ -603,6 +615,7 @@
   }
 
   .categories {
+    
     display: inline-flex;
     flex-direction: row;
     gap: 10px;
@@ -610,7 +623,8 @@
 
   .category {
     flex: 0 0 auto;
-    width: 250px; /* أو أي عرض مناسب */
+    width: 200px; /* أو أي عرض مناسب */
+    height: 150px;
   }
 
   .arrow-btn {
@@ -629,14 +643,22 @@
   color: var(--text-color);
   text-align: center;
 }
-
+.project-section a {
+  text-decoration: none;
+  color: var(--accent-color);
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
 .project-section .container {
-  max-width: 1320px;
-  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px;
 }
 
 .project-section h2 {
-  font-size: 2.8rem;
+  font-size: 2rem;
   margin-bottom: 20px;
   color: var(--accent-color);
 }
@@ -662,7 +684,8 @@
 .project-card {
   flex: 1 1 calc(25% - 30px);
   min-width: 280px;
-  padding: 24px;
+  max-width: 320px;
+  padding: 20px;
   border-radius: 20px;
   background: var(--card-bg);
   box-shadow: var(--card-shadow);
@@ -691,7 +714,7 @@
   width: 100%;
   height: 230px;
   object-fit: cover;
-  border-radius: 16px;
+  border-radius: 20px;
   margin-bottom: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   transition: box-shadow 0.3s ease;
@@ -702,7 +725,7 @@
 }
 
 .project-card h3 {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin-bottom: 14px;
   color: var(--accent-color);
   font-weight: 700;
@@ -710,13 +733,66 @@
 }
 
 .project-card p {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--text-color);
   line-height: 1.6;
   max-width: 280px;
   margin: 0 auto;
 }
 
+/* Progress bar styles */
+.progress-info {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column; /* نصوص تحت الشريط */
+  align-items: center;
+  max-width: 280px; /* نفس عرض البطاقة */
+  margin-left: auto;
+  margin-right: auto;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: #eee;
+  border-radius: 8px;
+  height: 12px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, var(--accent-color), #00ffd9, var(--accent-color));
+  background-size: 200% 100%;
+  animation: progressAnimation 2s linear infinite;
+  height: 100%;
+  width: 0;
+  border-radius: 8px 0 0 8px;
+  transition: width 0.5s ease-in-out;
+}
+
+@keyframes progressAnimation {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+
+.progress-text {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #555;
+  padding: 0 5px;
+}
+
+/* Pagination controls (optional) */
 .pagination-controls {
   text-align: center;
   margin-top: 30px;
@@ -741,76 +817,131 @@
   font-weight: bold;
 }
 
+/* More Button */
+.btn-more {
+  margin-top: 50px;
+  padding: 10px 52px;
+  border-radius: 6px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  border: 3px solid var(--accent-color);
+  background: transparent;
+  color: var(--accent-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-more:hover {
+  background: var(--accent-color);
+  color: white;
+}
+.filter-container {
+  display: flex;
+  justify-content: flex-start; /* بدلاً من center */
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 30px 20px;
+}
+
+
+/* Label style */
+.filter-container label {
+  font-size: 18px;
+  font-weight: 600;
+  color:var(--text-color);
+}
+
+/* Dropdown select style */
+#categoryFilter {
+  padding: 10px 16px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+/* Responsive adjustments */
 @media (max-width: 1024px) {
-      .project-card {
-        flex: 1 1 calc(50% - 20px);
-      }
+  .project-card {
+    flex: 1 1 calc(50% - 20px);
+    max-width: 45%;
+  }
 
-      .project-section h2 {
-        font-size: 2.2rem;
-      }
+  .project-section h2 {
+    font-size: 2rem;
+    margin-bottom: 80px;
+  color: var(--accent-color);
+  }
 
-      .project-section p {
-        font-size: 1.05rem;
-      }
-    }
+  .project-section p {
+    font-size: 1.05rem;
+  }
+}
 
-    @media (max-width: 768px) {
-      .projects-grid {
-        flex-direction: column;
-        gap: 20px;
-        padding: 0 10px;
-      }
+@media (max-width: 768px) {
+  .project-section .container {
+    flex-direction: column;
+    padding: 10px;
+    gap: 20px;
+  }
 
-      .project-card {
-        flex: 1 1 100%;
-        max-width: 100%;
-        padding: 20px;
-      }
+  .project-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+    padding: 20px;
+  }
 
-      .project-card img {
-        height: 180px;
-      }
+  .project-card img {
+    height: 180px;
+  }
 
-      .project-card h3 {
-        font-size: 1.3rem;
-      }
+  .project-card h3 {
+    font-size: 1.3rem;
+  }
 
-      .project-card p {
-        font-size: 1rem;
-      }
+  .project-card p {
+    font-size: 1rem;
+  }
 
-      .btn-more {
-        padding: 10px 40px;
-        font-size: 1rem;
-      }
-    }
+  .btn-more {
+    padding: 10px 40px;
+    font-size: 1rem;
+  }
+}
 
-    @media (max-width: 480px) {
-      .project-section h2 {
-        font-size: 1.8rem;
-      }
+@media (max-width: 480px) {
+  .project-section h2 {
+    font-size: 1.8rem;
+  }
 
-      .project-section p {
-        font-size: 1rem;
-      }
+  .project-section p {
+    font-size: 1rem;
+  }
+  .btn-more {
+    width: auto;           /* يسمح للزر بأن يتوسع حسب المحتوى */
+    max-width: 150px;      /* حد أقصى للعرض لتصغيره */
+    padding: 5px 20px;
+    font-size: 0.9rem;
+    margin: 0 auto;        /* لجعله في الوسط أفقياً */
+    display: block;        /* ليتم تطبيق margin auto */
+  }
+}
 
-      .btn-more {
-       
-        padding: 5px;
-      }
-    }
 
 /* ====================================
    More Button
 ==================================== */
 .btn-more {
   margin-top: 50px;
-  padding: 13px 52px;
-  border-radius: 30px;
+  padding: 10px 52px;
+  border-radius: 6px;
   font-size: 1.15rem;
   font-weight: 600;
-  border: 2px solid var(--accent-color);
+  border: 3px solid var(--accent-color);
   background: transparent;
   color: var(--accent-color);
   cursor: pointer;
@@ -930,6 +1061,7 @@
 
   .footer-column {
     min-width: 100%;
+    flex: 1 1 100px;
   }
 
   .main-footer {
@@ -959,7 +1091,7 @@
 
 
 .partners-section h2 {
-  font-size: 2.8rem;
+  font-size: 2rem;
   margin-bottom: 80px;
   color: var(--accent-color);
 }
@@ -973,8 +1105,8 @@
 
 .partner {
   flex: 0 0 auto;
-  width: 140px;
-  height: 140px;
+  width: 150px;
+  height: 150x;
   background: #fff;
   border-radius: 16px;
   padding: 12px;
@@ -1013,8 +1145,8 @@
   }
 
   .partner {
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    height: 100px;
     padding: 8px;
     border-radius: 10px;
   }
@@ -1070,10 +1202,16 @@
 .about-img {
   width: 100%;
   max-width: 100%;
+  object-fit: contain;
   max-height: 280px; /* أقل من 400px */
-  object-fit: cover;
   border-radius: 10px;
   margin-bottom: 25px;
+}
+.about-section a{
+  padding: 9px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 /* الصور الجانبية داخل الأقسام */
@@ -1081,6 +1219,7 @@
   max-width: 90%;     /* أصغر عرض ممكن مع الحفاظ على النسبة */
   max-height: 240px;  /* تقليل ارتفاع الصورة */
   border-radius: 10px;
+   object-fit: contain;
   box-shadow: 0 4px 8px rgba(0,0,0,0.05);
   margin-top: 10px;
 }
@@ -1111,20 +1250,11 @@
   margin-top: 40px;
 }
 
-.donate-btn {
-  display: inline-block;
-  background-color: var(--accent-color);
-  color: #fff;
-  padding: 12px 30px;
-  font-weight: bold;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: 0.3s ease;
-}
+
 
 .donate-btn:hover {
-  background-color: var(--highlight-color);
-  color: #000;
+  background-color: transparent;
+  color: #fff;
 }
 
 /* contact */

@@ -1,0 +1,74 @@
+ [
+  {
+    "img": "https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?auto=format&fit=crop&w=600&q=80",
+    "title": "Clean Water Initiative",
+    "desc": "Providing clean and safe drinking water.",
+    "category": "Health"
+  },
+  {
+    "img": "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=600&q=80",
+    "title": "Education for All",
+    "desc": "Supporting education for children in remote regions.",
+    "category": "Education"
+  },
+  {
+    "img": "https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?auto=format&fit=crop&w=600&q=80",
+    "title": "Healthcare Access",
+    "desc": "Improving healthcare facilities and access.",
+    "category": "Health"
+  },
+  {
+    "img": "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=600&q=80",
+    "title": "Environmental Awareness",
+    "desc": "Promoting eco-friendly initiatives.",
+    "category": "Environment"
+  },
+  {
+    "img": "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=600&q=80",
+    "title": "Orphan Support",
+    "desc": "Helping orphans with shelter and education.",
+    "category": "Social"
+  },
+  {
+    "img": "https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?auto=format&fit=crop&w=600&q=80",
+    "title": "Food Distribution",
+    "desc": "Providing meals for the needy and homeless.",
+    "category": "Social"
+  },
+  {
+    "img": "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=600&q=80",
+    "title": "Disaster Relief",
+    "desc": "Supporting communities after natural disasters.",
+    "category": "Emergency"
+  },
+  {
+    "img": "https://images.unsplash.com/photo-1580137189272-c9379f8864fd?auto=format&fit=crop&w=600&q=80",
+    "title": "Women Empowerment",
+    "desc": "Training and supporting women for independence.",
+    "category": "Social"
+  },
+  {
+    "img": "https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=600&q=80",
+    "title": "Youth Development",
+    "desc": "Enhancing skills and opportunities for young people.",
+    "category": "Education"
+  },
+  {
+    "img": "https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?auto=format&fit=crop&w=600&q=80",
+    "title": "Mental Health Support",
+    "desc": "Raising awareness and offering counseling services.",
+    "category": "Health"
+  },
+  {
+    "img": "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=600&q=80",
+    "title": "Elderly Care",
+    "desc": "Providing support and assistance for the elderly.",
+    "category": "Health"
+  },
+  {
+    "img": "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=600&q=80",
+    "title": "Green Projects",
+    "desc": "Tree planting and sustainability efforts.",
+    "category": "Environment"
+  }
+]

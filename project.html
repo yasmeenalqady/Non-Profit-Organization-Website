@@ -12,6 +12,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <link rel="stylesheet" href="css/style.css" />
+  <style>/* Container for the filter and project cards */
+
+
+
+
+
+</style>
 </head>
 <body>
 
@@ -46,18 +53,33 @@
 
 <!-- project  -->
 <section class="project-section">
-  <div class="container">
-    <h2>Our Projects</h2>
+  <h2>Our Projects</h2>
     <p>Discover the impactful projects we are working on to improve lives and communities.</p>
+    <div class="filter-container">
+     <label for="categoryFilter">Filter:</label>
+     <select id="categoryFilter">
+       <option value="all">All</option>
+       <option value="Education">Education</option>
+       <option value="Health">Health</option>
+       <option value="Social">Social</option>
+       <option value="Environment">Environment</option>
+       <option value="Emergency">Emergency</option>
+  <!-- Add more categories as in your data -->
+    </select>
+    
+    </div>
 
-    <div id="projectsContainer" class="projects-grid"></div>
-
-    <div class="pagination-controls" style="text-align: center; margin-top: 20px;">
+     <div class="container">
+    <div id="projectsContainer" class="projects-grid">
+      
+    </div>
+    
+  </div>
+   <div class="pagination-controls" style="text-align: center; margin-top: 20px;">
       <button id="prevBtnp" style="padding: 10px 20px; margin-right: 10px;">Previous</button>
       <span id="pageInfop" style="font-weight: bold;"></span>
       <button id="nextBtnp" style="padding: 10px 20px; margin-left: 10px;">Next</button>
     </div>
-  </div>
 </section>
 
 

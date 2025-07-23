@@ -181,86 +181,34 @@ if (partnersSlider) {
 }
 
 
+//------------------------------------------------------------------------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+  const projectsContainer = document.getElementById("projectsContainer");
+  const prevBtnp = document.getElementById("prevBtnp");
+  const nextBtnp = document.getElementById("nextBtnp");
+  const pageInfp = document.getElementById("pageInfop");
+  const categoryFilter = document.getElementById("categoryFilter");
 
+  let projects = [];
+  let filteredProjects = [];
+  let currentPage = 1;
+  const itemsPerPage = 8;
 
-const projects = [
-  {
-    img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
-    title: "Clean Water Initiative",
-    desc: "Providing clean and safe drinking water."
-  },
-  {
-    img: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=600&q=80",
-    title: "Education for All",
-    desc: "Supporting education for children in remote regions."
-  },
-  {
-    img: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=600&q=80",
-    title: "Healthcare Access",
-    desc: "Improving healthcare facilities and access."
-  },
-  {
-    img: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=600&q=80",
-    title: "Food Support Program",
-    desc: "Delivering food to families in need."
-  },
-  {
-    img: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=600&q=80",
-    title: "Youth Empowerment",
-    desc: "Skill development for underprivileged youth."
-  },
-  {
-    img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80",
-    title: "Environmental Awareness",
-    desc: "Promoting eco-friendly initiatives."
-  },
-  {
-    img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80",
-    title: "Community Healthcare",
-    desc: "Providing medical support in rural areas."
-  },
-  {
-    img: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=600&q=80",
-    title: "Educational Workshops",
-    desc: "Workshops to empower local communities."
-  },
-  {
-    img: "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=600&q=80",
-    title: "Disaster Relief",
-    desc: "Rapid response for natural disasters."
-  },
-  {
-    img: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80",
-    title: "Solar Energy Project",
-    desc: "Harnessing solar energy for clean power."
-  },
-  {
-    img: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=600&q=80",
-    title: "Animal Welfare",
-    desc: "Protecting animals and their habitats."
-  },
-  {
-    img: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=600&q=80",
-    title: "Literacy Campaign",
-    desc: "Increasing literacy in underserved areas."
-  }
-];
-
-
-let currentPage = 1;
-const itemsPerPage = 8;
-
-const projectsContainer = document.getElementById("projectsContainer");
-const prevBtnp = document.getElementById("prevBtnp");
-const nextBtnp = document.getElementById("nextBtnp");
-const pageInfp = document.getElementById("pageInfop");
-
-function renderProjects() {
+  function renderProjects() {
   projectsContainer.innerHTML = "";
 
   const start = (currentPage - 1) * itemsPerPage;
   const end = start + itemsPerPage;
-  const pageItems = projects.slice(start, end);
+  const pageItems = filteredProjects.slice(start, end);
+
+  if (pageItems.length === 0) {
+    projectsContainer.innerHTML = "<p>No projects to display.</p>";
+    // إخفاء أزرار التنقل إذا لا يوجد مشاريع
+    prevBtnp.style.display = "none";
+    nextBtnp.style.display = "none";
+    pageInfp.textContent = "";
+    return;
+  }
 
   pageItems.forEach(project => {
     const card = document.createElement("div");
@@ -273,24 +221,101 @@ function renderProjects() {
     projectsContainer.appendChild(card);
   });
 
-  pageInfp.textContent = `Page ${currentPage} of ${Math.ceil(projects.length / itemsPerPage)}`;
-  prevBtnp.disabled = currentPage === 1;
-  nextBtnp.disabled = currentPage === Math.ceil(projects.length / itemsPerPage);
+  pageInfp.textContent = `Page ${currentPage} of ${Math.ceil(filteredProjects.length / itemsPerPage)}`;
+
+  // إذا المشاريع أقل أو تساوي عدد العناصر في الصفحة الواحدة، إخفاء أزرار التنقل
+  if (filteredProjects.length <= itemsPerPage) {
+    prevBtnp.style.display = "none";
+    nextBtnp.style.display = "none";
+  } else {
+    // إظهار الأزرار وتفعيلها/تعطيلها حسب الصفحة
+    prevBtnp.style.display = "inline-block";
+    nextBtnp.style.display = "inline-block";
+    prevBtnp.disabled = currentPage === 1;
+    nextBtnp.disabled = currentPage === Math.ceil(filteredProjects.length / itemsPerPage);
+  }
 }
 
-prevBtnp.addEventListener("click", () => {
-  if (currentPage > 1) {
-    currentPage--;
+
+  function filterProjects() {
+    const selectedCategory = categoryFilter.value;
+    if (selectedCategory === "all") {
+      filteredProjects = projects;
+    } else {
+      filteredProjects = projects.filter(p => p.category === selectedCategory);
+    }
+    currentPage = 1; // Reset to first page on filter change
     renderProjects();
   }
-});
 
-nextBtnp.addEventListener("click", () => {
-  if (currentPage < Math.ceil(projects.length / itemsPerPage)) {
-    currentPage++;
-    renderProjects();
+  prevBtnp.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderProjects();
+    }
+  });
+
+  nextBtnp.addEventListener("click", () => {
+    if (currentPage < Math.ceil(filteredProjects.length / itemsPerPage)) {
+      currentPage++;
+      renderProjects();
+    }
+  });
+
+  categoryFilter.addEventListener("change", filterProjects);
+
+  async function loadProjects() {
+    try {
+      const response = await fetch('projects.json');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      projects = data;
+      filteredProjects = projects; // initially no filter
+      renderProjects();
+    } catch (error) {
+      projectsContainer.innerHTML = "<p>Failed to load projects.</p>";
+      console.error("Error loading projects:", error);
+    }
   }
+
+  loadProjects();
 });
 
-// أول تحميل
-renderProjects();
+
+
+
+
+// contact ----------------------------------------------------------------------------------------
+  document.getElementById("contactForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Get values
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+    const formMessage = document.getElementById("formMessage");
+
+    // Reset message
+    formMessage.textContent = "";
+
+    // Validation
+    if (!name || !email || !message) {
+      formMessage.textContent = "Please fill in all fields.";
+      return;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      formMessage.textContent = "Please enter a valid email address.";
+      return;
+    }
+
+    // If passed, show success (or actually submit the form here)
+    formMessage.style.color = "green";
+    formMessage.textContent = "Message sent successfully!";
+    
+    // Optionally clear the form
+    document.getElementById("contactForm").reset();
+  });
