@@ -405,9 +405,9 @@
  .left-side {
   order: 2;
   width: 100%;
-  height: 40%;
-  padding: 20px;
-  justify-content: flex-start;
+  height: 30%;
+  padding: 25px;
+  display: flex;
   background: var(--left-side-bg-mobile);
   color: var(--left-side-text-mobile);
 }
