@@ -23,16 +23,14 @@ let autoSlideInterval = null;
 
 function updateSlider() {
   slides.forEach((slide, i) => {
+    slide.classList.toggle('active', i === currentIndex);
     if (i === currentIndex) {
-      slide.classList.add('active');
       const rightSide = slide.querySelector('.right-side');
       if (rightSide) {
         rightSide.classList.remove('animate-overlay');
         void rightSide.offsetWidth; // force reflow
         rightSide.classList.add('animate-overlay');
       }
-    } else {
-      slide.classList.remove('active');
     }
   });
 }
@@ -55,7 +53,6 @@ function stopAutoSlide() {
   clearInterval(autoSlideInterval);
 }
 
-// التأكد من وجود الأزرار قبل إضافة الأحداث
 if (nextBtn && prevBtn) {
   nextBtn.addEventListener('click', () => {
     stopAutoSlide();
@@ -70,10 +67,41 @@ if (nextBtn && prevBtn) {
   });
 }
 
+// ===== دعم اللمس للجوال =====
+let touchStartX = 0;
+let touchEndX = 0;
+
 if (slides.length > 0) {
   updateSlider();
   startAutoSlide();
+
+  const sliderContainer = document.querySelector('.slider-container') || slides[0].parentElement;
+
+  if (sliderContainer) {
+    sliderContainer.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+    });
+
+    sliderContainer.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].clientX;
+      handleSwipeGesture();
+    });
+
+    function handleSwipeGesture() {
+      const swipeThreshold = 50;
+      if (touchEndX < touchStartX - swipeThreshold) {
+        stopAutoSlide();
+        nextSlide();
+        startAutoSlide();
+      } else if (touchEndX > touchStartX + swipeThreshold) {
+        stopAutoSlide();
+        prevSlide();
+        startAutoSlide();
+      }
+    }
+  }
 }
+
 
 // ===== 3) زر القائمة في الهواتف (Toggle) =====
 const menuToggle = document.querySelector('.menu-toggle');
