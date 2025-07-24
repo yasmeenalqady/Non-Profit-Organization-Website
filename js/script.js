@@ -1,19 +1,3 @@
-// ===== 1) الهيدر: إضافة كلاس عند التمرير بعد عنصر الـ hero =====
-const header = document.querySelector('.main-header');
-const hero = document.getElementById('hero');
-
-if (header && hero) {
-  window.addEventListener('scroll', () => {
-    const heroBottom = hero.offsetTop + hero.offsetHeight;
-    if (window.scrollY > heroBottom) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  });
-}
-
-// ===== 2) السلايدر الرئيسي مع أزرار التالي والسابق =====
 const slides = document.querySelectorAll('.slide');
 const nextBtn = document.getElementById('next');
 const prevBtn = document.getElementById('prev');
@@ -28,7 +12,7 @@ function updateSlider() {
       const rightSide = slide.querySelector('.right-side');
       if (rightSide) {
         rightSide.classList.remove('animate-overlay');
-        void rightSide.offsetWidth; // force reflow
+        void rightSide.offsetWidth; // Force reflow
         rightSide.classList.add('animate-overlay');
       }
     }
@@ -53,6 +37,7 @@ function stopAutoSlide() {
   clearInterval(autoSlideInterval);
 }
 
+// الأزرار
 if (nextBtn && prevBtn) {
   nextBtn.addEventListener('click', () => {
     stopAutoSlide();
@@ -67,37 +52,42 @@ if (nextBtn && prevBtn) {
   });
 }
 
-// ===== دعم اللمس للجوال =====
-let touchStartX = 0;
-let touchEndX = 0;
-
+// البداية
 if (slides.length > 0) {
   updateSlider();
   startAutoSlide();
+}
 
-  const sliderContainer = document.querySelector('.slider-container') || slides[0].parentElement;
+// ===== دعم اللمس (الجزء المهم) =====
+let touchStartX = 0;
+let touchEndX = 0;
 
-  if (sliderContainer) {
-    sliderContainer.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-    });
+const sliderTouchArea = document.querySelector('.slider-container') || document.querySelector('.slides-wrapper') || slides[0]?.parentElement;
 
-    sliderContainer.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].clientX;
-      handleSwipeGesture();
-    });
+if (sliderTouchArea) {
+  sliderTouchArea.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+  });
 
-    function handleSwipeGesture() {
-      const swipeThreshold = 50;
-      if (touchEndX < touchStartX - swipeThreshold) {
-        stopAutoSlide();
-        nextSlide();
-        startAutoSlide();
-      } else if (touchEndX > touchStartX + swipeThreshold) {
-        stopAutoSlide();
-        prevSlide();
-        startAutoSlide();
-      }
+  sliderTouchArea.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].clientX;
+    handleSwipeGesture();
+  });
+
+  function handleSwipeGesture() {
+    const swipeDistance = touchEndX - touchStartX;
+    const threshold = 50;
+
+    if (swipeDistance > threshold) {
+      // سحب لليمين (سابق)
+      stopAutoSlide();
+      prevSlide();
+      startAutoSlide();
+    } else if (swipeDistance < -threshold) {
+      // سحب لليسار (التالي)
+      stopAutoSlide();
+      nextSlide();
+      startAutoSlide();
     }
   }
 }
@@ -159,6 +149,7 @@ if (slider) {
       slider.style.transform = `translateX(-${scrollIndex * 200}px)`;
     });
   }
+
   if (rightArrow) {
     rightArrow.addEventListener('click', () => {
       scrollIndex = Math.min(scrollIndex + 1, maxScroll);
@@ -174,7 +165,32 @@ if (slider) {
     });
   });
 
-  // حركة تلقائية كل 3 ثواني
+  // ===== دعم اللمس للجوال في سلايدر الفئات =====
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  slider.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+  });
+
+  slider.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].clientX;
+    handleCategorySwipe();
+  });
+
+  function handleCategorySwipe() {
+    const threshold = 50; // أقل مسافة للسحب لتغيير الفئة
+    if (touchEndX < touchStartX - threshold) {
+      // سحب لليسار => التالي
+      scrollIndex = Math.min(scrollIndex + 1, maxScroll);
+    } else if (touchEndX > touchStartX + threshold) {
+      // سحب لليمين => السابق
+      scrollIndex = Math.max(scrollIndex - 1, 0);
+    }
+    slider.style.transform = `translateX(-${scrollIndex * 200}px)`;
+  }
+
+  // ===== حركة تلقائية كل 3 ثواني =====
   setInterval(() => {
     scrollIndex++;
     if (scrollIndex > maxScroll) scrollIndex = 0;
