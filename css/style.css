@@ -162,7 +162,7 @@
 .hero-slider {
   position: relative;
   overflow: hidden;
-  height: calc(100vh - 70px); /* subtract header */
+ /* height: calc(100vh - 70px); subtract header */
 }
 .slides-wrapper {
   display: flex;
